@@ -1,6 +1,8 @@
+console.log('todos');
+
 Todos.Todo = DS.Model.extend({
-	title: DS.attr('string'),
-	isCompleted: DS.attr('boolean')
+  	title: DS.attr('string'),
+  	isCompleted: DS.attr('boolean')
 });
 
 Todos.Todo.FIXTURES = [
@@ -11,7 +13,7 @@ Todos.Todo.FIXTURES = [
 	},
 	{
 		id: 2,
-		title: '...'
+		title: '...',
 		isCompleted: false
 	},
 	{
