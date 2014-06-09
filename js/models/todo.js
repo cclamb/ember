@@ -1,4 +1,3 @@
-console.log('todos');
 
 Todos.Todo = DS.Model.extend({
   	title: DS.attr('string'),
