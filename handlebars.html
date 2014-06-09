@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Handlebars Tests</title>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  	<script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
+  </head>
+  <body>
+
+  <script id="entry-template" type="text/x-handlebars-template">
+
+
+  <div class="entry">
+  	<h1>{{title}}</h1>
+  	<div class="body">
+  		{{body}}
+  	</div>
+  </div>
+
+  </script>
+
+  <script>
+  	var source = $("#entry-template").html();
+  	var template = Handlebars.compile(source);
+  	var html = template({title: 'title', body: 'body'});
+    console.log(html);
+  	document.body.innerHTML = html;
+  </script>
+
+  </body>
+ </html>
