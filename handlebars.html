@@ -11,11 +11,13 @@
     <div id="content">
     </div>
 
+    <div id="comments">
+    </div>
+
     <div id="footer">
     </div>
 
   <script id="entry-template" type="text/x-handlebars-template">
-
 
   <div class="entry">
   	<h1>{{title}}</h1>
@@ -24,6 +26,25 @@
   	</div>
     <p>Peeps:</p>
     {{#list people}} {{firstName}} {{lastName}} {{/list}}
+  </div>
+
+  </script>
+
+  <script id="comments-template" type="text/x-handlebars-template">
+
+
+  <div class="entry">
+    <h1>{{title}}</h1>
+    <div class="body">
+      {{body}}
+    </div>
+    <p>comments:</p>
+    {{#each comments}}
+    Comment on: {{../title}} <br>
+    Comment: {{text}} <br>
+    by: {{author}} <br>
+    <br><br>
+    {{/each}}
   </div>
 
   </script>
@@ -47,6 +68,19 @@
         {firstName: 'meh', lastName: 'moo'}
       ]
     };
+
+    var commentData = {
+      title: 'some post',
+      body: 'this is the post',
+      comments: [
+        { text: 'comment 1', author: 'frank' },
+        { text: 'comment 2', author: 'sam' },
+        { text: 'comment 3', author: 'mark' },
+        { text: 'comment 4', author: 'anon' },
+        { text: 'comment 5', author: 'foo' },
+        { text: 'comment 6', author: 'blech' }
+      ]
+    }
         
     var state = {
       page: 1,
@@ -66,6 +100,11 @@
   	     template = Handlebars.compile(source),
   	     html = template(data);
 
+    // Comments templates
+    var  commentsSource = $('#comments-template').html(),
+         commentsTemplate = Handlebars.compile(commentsSource),
+         commentsHtml = commentsTemplate(commentData);
+
     // Footer templates
     var footerSource = $('#footer-template').html(),
         footerTemplate = Handlebars.compile(footerSource),
@@ -73,8 +112,9 @@
 
   	//document.body.innerHTML = html;
     //document.getElementById('content').innerHTML = html;
-    $('#content').html(html);
-    $('#footer').html(footerHtml);
+    //$('#content').html(html);
+    $('#comments').html(commentsHtml);
+    //$('#footer').html(footerHtml);
 
   </script>
 
