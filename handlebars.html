@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Handlebars Tests</title>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  	<script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
+  </head>
+  <body>
+
+    <div id="content">
+    </div>
+
+    <div id="footer">
+    </div>
+
+  <script id="entry-template" type="text/x-handlebars-template">
+
+
+  <div class="entry">
+  	<h1>{{title}}</h1>
+  	<div class="body">
+  		{{body}}
+  	</div>
+    <p>Peeps:</p>
+    {{#list people}} {{firstName}} {{lastName}} {{/list}}
+  </div>
+
+  </script>
+
+  <script id="footer-template" type="text/x-handlebars-template">
+
+  <div class="footer">
+    page {{page}} of {{total}} pages
+  </div>
+
+  </script>
+
+  <script>
+
+    var data = {
+      title: 'My new post',
+      body: 'This is my first post duder!',
+      people: [
+        {firstName: 'foo', lastName: 'bar'},
+        {firstName: 'bleh', lastName: 'blah'},
+        {firstName: 'meh', lastName: 'moo'}
+      ]
+    };
+        
+    var state = {
+      page: 1,
+      total: 4
+    };
+
+    Handlebars.registerHelper('list', function(items, options){
+      var out = '<ul>';
+      for (var i = 0, l = items.length; i < l; i++) {
+        out = out + '<li>' + options.fn(items[i]) + '</li>';
+      }
+      return out + '</ul>';
+    });
+
+    // Body templates
+  	var  source = $('#entry-template').html(),
+  	     template = Handlebars.compile(source),
+  	     html = template(data);
+
+    // Footer templates
+    var footerSource = $('#footer-template').html(),
+        footerTemplate = Handlebars.compile(footerSource),
+        footerHtml = footerTemplate(state);
+
+  	//document.body.innerHTML = html;
+    //document.getElementById('content').innerHTML = html;
+    $('#content').html(html);
+    $('#footer').html(footerHtml);
+
+  </script>
+
+  </body>
+ </html>
