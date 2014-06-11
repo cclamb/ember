@@ -40,11 +40,16 @@
     </div>
     <p>comments:</p>
     {{#each comments}}
+    Comment No. {{@index}} <br>
     Comment on: {{../title}} <br>
     Comment: {{text}} <br>
     by: {{author}} <br>
     <br><br>
+    {{else}}
+    No comments baby!
     {{/each}}
+
+    {{log 'what up dog!'}}
   </div>
 
   </script>
@@ -81,6 +86,12 @@
         { text: 'comment 6', author: 'blech' }
       ]
     }
+
+    var noCommentData = {
+      title: 'some post',
+      body: 'this is the post',
+      comments: []
+    }    
         
     var state = {
       page: 1,
@@ -104,6 +115,11 @@
     var  commentsSource = $('#comments-template').html(),
          commentsTemplate = Handlebars.compile(commentsSource),
          commentsHtml = commentsTemplate(commentData);
+
+    // No comments template with new invocation pattern
+    var noCommentsHtml = Handlebars.compile(
+        $('#comments-template').html()
+      )(noCommentData);
 
     // Footer templates
     var footerSource = $('#footer-template').html(),
