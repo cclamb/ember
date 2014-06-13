@@ -22,10 +22,11 @@
           {{#each itemController="todo"}}
             <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
               {{#if isEditing}}
-                <input class="edit">
+                {{edit-todo class="edit" value=title focus-out="acceptChanges" insert-newline="acceptChanges"}}
               {{else}}
                 {{input type="checkbox" checked=isCompleted class="toggle"}}
-                <label {{action "editTodo" on="doubleClick"}}>{{title}}</label><button class="destroy"></button>
+                <label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
+                <button {{action "removeTodo"}} class="destroy"></button>
               {{/if}}
             </li>
           {{/each}}
@@ -62,6 +63,7 @@
 
     </script>
 
+    <script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="js/libs/jquery-1.10.2.min.js"></script>
     <script src="js/libs/handlebars-1.0.0.js"></script>
     <script src="js/libs/ember.js"></script>
@@ -71,5 +73,6 @@
     <script src="js/models/todo.js"></script>
     <script src="js/controllers/todos_controller.js"></script>
     <script src="js/controllers/todo_controller.js"></script>
+    <script src="js/views/edit_todo_view.js"></script
   </body>
 </html>
