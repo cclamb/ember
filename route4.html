@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Route-Cuatro</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars">
+      <header>
+        <h1>Route (cuatro) Testing</h1>
+      </header>
+
+      <div>
+        {{outlet}}
+      </div>
+      <hr>
+      <footer>
+        &copy;2013 Tasty Route Testing, Inc. 
+      </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="index">
+      <h2>{{title}}</h2>
+      This is the index template.  Check out our {{#link-to 'posts'}}posts{{/link-to}}.
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="posts">
+      <h2>{{title}}</h2>
+      This is the posts template.
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.RouteTests = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      RouteTests.Route = Ember.Route.extend({
+        setupController: function(controller) {
+          controller.set('title', 'Cool app, bro.');
+        }
+      });
+
+      RouteTests.Router.map(function() {
+        this.resource('posts', { path: '/posts' });
+      });
+
+    </script>
+
+  </body>
+</html>
