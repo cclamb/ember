@@ -79,6 +79,22 @@
         // }
       ];
 
+      Comments.CommentsController = Ember.ArrayController.extend({
+
+        _isExpanded: false,
+
+        actions: {
+          toggleProperty: function() {
+            this.set('_isExpanded', !this.get('_isExpanded'));
+          }
+        },
+
+        isExpanded: function() {
+          return _isExpanded;
+        }.property('isExpanded')
+
+      });
+
     </script>
   </body>
 </html>
