@@ -21,6 +21,10 @@
       </footer>
     </script>
 
+    <script type="text/x-handlebars" data-template-name="index">
+      This is the Index! Photos are {{#link-to 'photos'}}here{{/link-to}}.
+    </script>  
+
     <script type="text/x-handlebars" data-template-name="photos">
       <h2>{{title}}</h2>
       This is the photo template.
@@ -40,6 +44,24 @@
 
       RouteTests.Router.map(function() {
         this.resource('photos');
+      });
+
+      RouteTests.PhotosRoute = Ember.Route.extend({
+        model: function() {
+          return [{
+            title: "Tomster",
+            url: "http://emberjs.com/images/about/ember-productivity-sm.png"
+          }, {
+            title: "Eiffel Tower",
+            url: "http://emberjs.com/images/about/ember-structure-sm.png"
+          }];
+        }
+      });
+
+      RouteTests.IndexRoute = Ember.Route.extend({
+        redirect: function() {
+          this.transitionTo('photos');
+        }
       });
 
     </script>
