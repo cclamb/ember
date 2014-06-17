@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Post</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars" data-template-name="comments">
+      {{#each}}
+
+        <h1>{{title}}</h1>
+        <h2>by {{author}}</h2>
+
+        <div class='intro'>
+          {{intro}}
+        </div>
+        <hr>
+
+        {{#if isExpanded}}
+          <button {{action 'toggleProperty' 'isExpanded'}}>Hide Body</button>
+          <div class='body'>
+            {{body}}
+          </div>
+        {{else}}
+          <button {{action 'toggleProperty' 'isExpanded'}}>Show Body</button>
+        {{/if}}
+
+      {{/each}}
+
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.Comments = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      Comments.Router.map(function() {
+        this.resource('comments', { path: '/' });
+      });
+
+      Comments.CommentsRoute = Ember.Route.extend({
+          model: function() {
+            return this.store.find('post');
+          }
+      });
+
+      Comments.ApplicationAdapter = DS.FixtureAdapter.extend();
+
+      Comments.Post = DS.Model.extend({
+        title: DS.attr('string'),
+        author: DS.attr('string'),
+        intro: DS.attr('string'),
+        body: DS.attr('string')
+      });
+
+      Comments.Post.FIXTURES = [
+        {
+          id: 1,
+          title: 'Learn Ember.js',
+          author: 'Sam McCrackle',
+          intro: 'An awesome post.',
+          body: 'Here is my awesome post; how awesome it is indeed!'
+        }
+        // {
+        //   id: 2,
+        //   title: 'Learn Ember.js',
+        //   author: 'Sam McCrackle',
+        //   intro: 'An awesome post.',
+        //   body: 'Here is my awesome post; how awesome it is indeed!'
+        // }
+      ];
+
+    </script>
+  </body>
+</html>
