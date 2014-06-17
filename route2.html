@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Route-Dos</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars">
+      <header>
+        <h1>Route (dos) Testing</h1>
+      </header>
+
+      <div>
+        {{outlet}}
+      </div>
+      <hr>
+      <footer>
+        &copy;2013 Tasty Route Testing, Inc. 
+        {{#link-to 'index'}}index{{/link-to}} 
+        {{#link-to 'posts'}}posts{{/link-to}}
+        {{#link-to 'posts.all'}}posts/all{{/link-to}}
+      </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="index">
+      <div class ="intro">
+      Base index.
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="posts">
+      <div class ="intro">
+      <h2>{{title}}</h2>
+      (posts template.)
+      {{outlet}}
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="posts/index">
+      <div class ="intro">
+      <h2>{{title}}</h2>
+      index
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="posts/all">
+      <div class ="intro">
+      <h2>{{name}}</h2>
+      all
+      </div>
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.RouteTests = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      RouteTests.Router.map(function() {
+        this.resource('index', {path: '/'});
+        this.resource('posts', { path: '/posts' }, function() {
+          this.route('all');
+        });
+      });
+
+      RouteTests.PostsIndexRoute = Ember.Route.extend({
+        setupController: function(controller) {
+          controller.set('title', 'nice post, bro.');
+        }
+      });
+
+      RouteTests.PostsAllRoute = Ember.Route.extend({
+        setupController: function(controller) {
+          controller.set('name', 'Foofoo Greyjoy');
+        }
+      });
+
+      RouteTests.ApplicationAdapter = DS.FixtureAdapter.extend();
+
+      RouteTests.Post = DS.Model.extend({
+        title: DS.attr('string'),
+        author: DS.attr('string'),
+        intro: DS.attr('string'),
+        body: DS.attr('string')
+      });
+
+      RouteTests.Post.FIXTURES = [
+        {
+          id: 1,
+          title: 'Learn Ember.js',
+          author: 'Sam McCrackle',
+          intro: 'An awesome post.',
+          body: 'Here is my awesome post; how awesome it is indeed!'
+        },
+        {
+          id: 2,
+          title: 'Why use Ember.js?',
+          author: 'Mark McCracklin',
+          intro: 'I\'m not so smart.',
+          body: 'Here is my awesome post; how awesome it is indeed!'
+        }
+      ];
+
+    </script>
+
+  </body>
+</html>
