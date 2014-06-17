@@ -18,14 +18,25 @@
         </div>
         <hr>
 
-        {{#if isExpanded}}
-          <button {{action 'toggleProperty' 'isExpanded'}}>Hide Body</button>
-          <div class='body'>
-            {{body}}
-          </div>
-        {{else}}
-          <button {{action 'toggleProperty' 'isExpanded'}}>Show Body</button>
-        {{/if}}
+        <div class='body'>
+          {{body}}
+        </div>
+
+        <footer id="info">
+        # of {{total}}
+        </footer>
+
+        <!--
+        // {{#if isExpanded}}
+        //   <button {{action 'toggleProperty' 'isExpanded'}}>Hide Body</button>
+        //   <div class='body'>
+        //     {{body}}
+        //   </div>
+        // {{else}}
+        //   <button {{action 'toggleProperty' 'isExpanded'}}>Show Body</button>
+        // {{/if}} 
+        -->
+
 
       {{/each}}
 
@@ -72,26 +83,36 @@
         }
         // {
         //   id: 2,
-        //   title: 'Learn Ember.js',
-        //   author: 'Sam McCrackle',
-        //   intro: 'An awesome post.',
+        //   title: 'Why use Ember.js?',
+        //   author: 'Mark McCracklin',
+        //   intro: 'I\'m not so smart.',
         //   body: 'Here is my awesome post; how awesome it is indeed!'
         // }
       ];
 
       Comments.CommentsController = Ember.ArrayController.extend({
 
-        _isExpanded: false,
+        total: 10
 
-        actions: {
-          toggleProperty: function() {
-            this.set('_isExpanded', !this.get('_isExpanded'));
-          }
-        },
+        // _isExpanded: false,
 
-        isExpanded: function() {
-          return _isExpanded;
-        }.property('isExpanded')
+        // actions: {
+        //   toggleProperty: function() {
+        //     this.set('_isExpanded', !this.get('_isExpanded'));
+        //   }
+        // },
+
+        // isExpanded: function() {
+        //   return _isExpanded;
+        // }.property('isExpanded')
+
+        // total: function() {
+        //   return 1; //this.model.length;
+        // }.property('total'),
+
+        // inflection: function() {
+
+        // }.property('remaining')
 
       });
 

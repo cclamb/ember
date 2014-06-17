@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Templates</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars">
+      <header>
+        <h1>Igor Blog</h1>
+      </header>
+
+      <div>
+        {{outlet}}
+      </div>
+
+      <footer>
+        &copy;2013 Igor Publishing, Inc.
+      </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="t-0">
+      <div class ="intro">
+      This is the internal template.
+      </div>
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.RouteTests = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      RouteTests.Router.map(function() {
+        this.resource('t-0', { path: '/' });
+      });
+
+      // RouteTests.CommentsRoute = Ember.Route.extend({
+      //     model: function() {
+      //       return this.store.find('post');
+      //     }
+      // });
+
+    </script>
+
+  </body>
+</html>

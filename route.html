@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Route</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars">
+      <header>
+        <h1>Route Testing</h1>
+      </header>
+
+      <div>
+        {{outlet}}
+      </div>
+      <hr>
+      <footer>
+        &copy;2013 Tasty Route Testing, Inc. 
+        {{#link-to 'RootTemplate'}}root{{/link-to}} 
+        {{#link-to 'TemplateOne'}}1{{/link-to}}
+        {{#link-to 'TemplateTwo'}}2{{/link-to}}
+        {{#link-to 'TemplateThree'}}3{{/link-to}}
+        {{#link-to 'TemplateFour'}}4{{/link-to}}
+        {{#link-to 'TemplateFour.foursies'}}foursies{{/link-to}}
+        {{#link-to 'TemplateFour.fourier'}}fourier{{/link-to}}
+      </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="RootTemplate">
+      <div class ="intro">
+      <h2>{{title}}</h2>
+      Root template.
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="TemplateOne">
+      <div class ="intro">
+      <h2>from: {{jerk}}</h2>
+      Template 1.
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="TemplateTwo">
+      <div class ="intro">
+      Template 2.
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="TemplateThree">
+      <div class ="intro">
+      Template 3.
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="TemplateFour">
+      <div class ="intro">
+      Template 4.
+      </div>
+      <div class="footer">
+        {{outlet}}
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="TemplateFour/foursies">
+      <div class ="intro">
+      <em>Template four/foursies in da house.</em>
+      </div>
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.RouteTests = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      RouteTests.Router.map(function() {
+        this.route('RootTemplate', { path: '/' });
+        this.route('TemplateOne', { path: '/one' });
+        this.route('TemplateTwo', { path: '/two' });
+        this.route('TemplateThree', { path: '/three' });
+        this.route('TemplateFour', { path: '/four' });
+        this.resource('TemplateFour', { path: '/fourtastic'}, function() {
+          this.route('foursies');
+          this.route('fourier');
+        });
+      });
+
+      RouteTests.RootTemplateRoute = Ember.Route.extend({
+        setupController: function(controller) {
+          controller.set('title', 'Sweet App!');
+        }
+      });
+
+      RouteTests.TemplateOneRoute = Ember.Route.extend({
+        setupController: function(controller) {
+          controller.set('jerk', 'Vladimir');
+        }
+      });
+
+      // RouteTests.Router.map(function() {
+      //   this.resource('t-0', { path: '/root' });
+      //   this.resource('t-1', { path: '/one' });
+      //   this.resource('t-2', { path: '/two' });
+      //   this.resource('t-3', { path: '/three' });
+      //   this.resource('t-4', { path: '/four' });
+      // });
+
+      // RouteTests.CommentsRoute = Ember.Route.extend({
+      //     model: function() {
+      //       return this.store.find('post');
+      //     }
+      // });
+
+    </script>
+
+  </body>
+</html>
