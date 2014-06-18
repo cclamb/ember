@@ -29,12 +29,21 @@
 
     <script type="text/x-handlebars" data-template-name="photos">
       {{#each}}
+        <div>
+          <h2>{{title}}</h2>
+          {{url}}
+        </div>
+        <img {{bind-attr src=url alt=title}}><br>
+        {{#link-to 'photo' id}}See full image{{/link-to}}
+      {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="photo">
       <div>
         <h2>{{title}}</h2>
         {{url}}
       </div>
       <img {{bind-attr src=url alt=title}}>
-      {{/each}}
     </script>
 
     <script type="text/x-handlebars" data-template-name="pulls">
@@ -75,17 +84,38 @@
         this.resource('photos');
         this.resource('pulls');
         this.resource('topthree');
+        this.resource('photo', { path: '/photos/:photo_id' });
       });
 
       RouteTests.PhotosRoute = Ember.Route.extend({
         model: function() {
           return [{
+            id: 1,
             title: "Tomster",
             url: "http://emberjs.com/images/about/ember-productivity-sm.png"
           }, {
+            id: 2,
             title: "Eiffel Tower",
             url: "http://emberjs.com/images/about/ember-structure-sm.png"
           }];
+        }
+      });
+
+      RouteTests.PhotoRoute = Ember.Route.extend({
+        model: function(params) {
+          var data = [{
+            id: 1,
+            title: "Tomster",
+            url: "http://emberjs.com/images/about/ember-productivity-sm.png"
+          }, {
+            id: 2,
+            title: "Eiffel Tower",
+            url: "http://emberjs.com/images/about/ember-structure-sm.png"
+          }];
+
+          var id = params.photo_id,
+              image = _.find(data, function(datum) { return datum.id == id; });
+          return image;
         }
       });
 
@@ -105,7 +135,7 @@
 
       RouteTests.IndexRoute = Ember.Route.extend({
         redirect: function() {
-          this.transitionTo('topthree');
+          this.transitionTo('photos');
         }
       });
 
