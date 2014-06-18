@@ -57,17 +57,6 @@
       {{/each}}
     </script>
 
-    <script type="text/x-handlebars" data-template-name="topthree">
-      {{#each}}
-        <div>
-        <h2>{{title}}</h2>
-        by: {{user.login}}<br>
-        url: {{url}} <br>
-        <hr>
-      </div>
-      {{/each}}
-    </script>
-
     <script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="js/libs/jquery-1.10.2.min.js"></script>
     <script src="js/libs/handlebars-1.0.0.js"></script>
@@ -116,6 +105,10 @@
       });
 
       RouteTests.TopthreeRoute = Ember.Route.extend({
+        renderTemplate: function() {
+          this.render('pulls');
+        },
+
         model: function() {
           return Ember.$.getJSON('https://api.github.com/repos/emberjs/ember.js/pulls').then(function(data) {
             return data.splice(0, 3);
@@ -125,7 +118,7 @@
 
       RouteTests.IndexRoute = Ember.Route.extend({
         redirect: function() {
-          this.transitionTo('photos');
+          this.transitionTo('topthree');
         }
       });
 

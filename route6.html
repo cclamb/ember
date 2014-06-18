@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Route-Cinco</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars">
+      <header>
+        <h1>Route (cinco) Testing</h1>
+      </header>
+      <div>
+        <div>{{outlet uno}}</div>
+        <hr>
+        <div>{{outlet dos}}</div>
+      </div>
+      <hr>
+      <footer>
+        &copy;2013 Tasty Route Testing, Inc. 
+      </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="one">
+    Template One
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="oneframe">
+    Template Oneframe: {{outlet}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="two">
+    Template Two
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="twoframe">
+    Template Twoframe: {{outlet}}
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.RouteTests = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      RouteTests.Router.map(function() {
+      });
+
+      RouteTests.IndexRoute = Ember.Route.extend({
+        renderTemplate: function() {
+          this.render('one', {
+            // into: 'frame', <-- Doesn't seem to work.
+            outlet: 'uno',
+            controller: 'single'
+          });
+          this.render('two',{
+            // into: 'frame', <-- Doesn't seem to work.
+            outlet: 'dos',
+            controller: 'duo'
+          });
+        }
+      });
+
+      RouteTests.SingleController = Ember.Controller.extend({});
+      RouteTests.DuoController = Ember.Controller.extend({});
+
+    </script>
+
+  </body>
+</html>
