@@ -22,12 +22,41 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="index">
-      This is the Index! Photos are {{#link-to 'photos'}}here{{/link-to}}.
+      {{#link-to 'photos'}}photos{{/link-to}} 
+      {{#link-to 'pulls'}}pulls{{/link-to}} 
+      {{#link-to 'topthree'}}top three{{/link-to}}
     </script>  
 
     <script type="text/x-handlebars" data-template-name="photos">
-      <h2>{{title}}</h2>
-      This is the photo template.
+      {{#each}}
+      <div>
+        <h2>{{title}}</h2>
+        {{url}}
+      </div>
+      <img {{bind-attr src=url alt=title}}>
+      {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="pulls">
+      {{#each}}
+        <div>
+        <h2>{{title}}</h2>
+        by: {{user.login}}<br>
+        url: {{url}} <br>
+        <hr>
+      </div>
+      {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="topthree">
+      {{#each}}
+        <div>
+        <h2>{{title}}</h2>
+        by: {{user.login}}<br>
+        url: {{url}} <br>
+        <hr>
+      </div>
+      {{/each}}
     </script>
 
     <script src="http://underscorejs.org/underscore-min.js"></script>
@@ -44,6 +73,8 @@
 
       RouteTests.Router.map(function() {
         this.resource('photos');
+        this.resource('pulls');
+        this.resource('topthree');
       });
 
       RouteTests.PhotosRoute = Ember.Route.extend({
@@ -58,9 +89,23 @@
         }
       });
 
+      RouteTests.PullsRoute = Ember.Route.extend({
+        model: function() {
+          return Ember.$.getJSON('https://api.github.com/repos/emberjs/ember.js/pulls');
+        }
+      });
+
+      RouteTests.TopthreeRoute = Ember.Route.extend({
+        model: function() {
+          return Ember.$.getJSON('https://api.github.com/repos/emberjs/ember.js/pulls').then(function(data) {
+            return data.splice(0, 3);
+          });
+        }
+      });
+
       RouteTests.IndexRoute = Ember.Route.extend({
         redirect: function() {
-          this.transitionTo('photos');
+          this.transitionTo('topthree');
         }
       });
 
