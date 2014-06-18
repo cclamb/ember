@@ -75,6 +75,16 @@
     <script src="js/libs/ember-data.js"></script>
     <script>
 
+      var data = [{
+            id: 1,
+            title: "Tomster",
+            url: "http://emberjs.com/images/about/ember-productivity-sm.png"
+          }, {
+            id: 2,
+            title: "Eiffel Tower",
+            url: "http://emberjs.com/images/about/ember-structure-sm.png"
+          }];
+
       window.RouteTests = Ember.Application.create({
         LOG_TRANSITIONS: true,
         LOG_TRANSITIONS_INTERNAL: true
@@ -89,33 +99,13 @@
 
       RouteTests.PhotosRoute = Ember.Route.extend({
         model: function() {
-          return [{
-            id: 1,
-            title: "Tomster",
-            url: "http://emberjs.com/images/about/ember-productivity-sm.png"
-          }, {
-            id: 2,
-            title: "Eiffel Tower",
-            url: "http://emberjs.com/images/about/ember-structure-sm.png"
-          }];
+          return data;
         }
       });
 
       RouteTests.PhotoRoute = Ember.Route.extend({
         model: function(params) {
-          var data = [{
-            id: 1,
-            title: "Tomster",
-            url: "http://emberjs.com/images/about/ember-productivity-sm.png"
-          }, {
-            id: 2,
-            title: "Eiffel Tower",
-            url: "http://emberjs.com/images/about/ember-structure-sm.png"
-          }];
-
-          var id = params.photo_id,
-              image = _.find(data, function(datum) { return datum.id == id; });
-          return image;
+          return _.find(data, function(datum) { return datum.id == params.photo_id; });
         }
       });
 
