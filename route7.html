@@ -21,7 +21,12 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="index">
-    index
+    index<br>
+    {{#link-to 'err'}}err here duder!{{/link-to}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="err">
+    err
     </script>
 
     <script src="http://underscorejs.org/underscore-min.js"></script>
@@ -38,6 +43,60 @@
 
       RouteTests.Router.map(function() {
         this.resource('index', { path: '/' });
+        this.resource('err');
+      });
+
+      var testRoute1 = Ember.Route.extend({
+
+        model: function() {
+          return new Ember.RSVP.Promise(function(resolve){
+            Ember.run.later(function() {
+              resolve({ msg: 'hold on bucko!' })
+            }, 3000);
+          });
+        },
+
+        setupController: function(controller, model) {
+          console.log(model.msg);
+        }
+
+      });
+
+      var testRoute2 = Ember.Route.extend({
+
+        model: function() {
+          return Ember.RSVP.reject('luser!');
+        },
+
+        actions: {
+          error: function(reason) {
+            alert('testRoute2: ' + reason);
+            return true;
+          }
+        }
+
+      });
+
+      var testy = new Ember.RSVP.Promise();
+
+      var testRoute3 = Ember.Route.extend({
+        model: function() {
+          return testy().then(null, function() {
+            //return { msg: 'keep on rollin\'!' };
+          });
+          //return testy().then(null, null);
+        }
+      });
+
+      RouteTests.ErrRoute = testRoute3;
+      RouteTests.ApplicationRoute = Ember.Route.extend({
+        actions: {
+          error: function(reason) {
+            alert('AppRoute: ' + reason);
+            this.transitionTo('index');
+            return false;
+          }
+        }
       });
 
     </script>
