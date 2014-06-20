@@ -77,7 +77,7 @@
 
       });
 
-      var testy = new Ember.RSVP.Promise();
+      var testy = new Ember.RSVP.Promise(function(resolve){});
 
       var testRoute3 = Ember.Route.extend({
         model: function() {
@@ -88,7 +88,7 @@
         }
       });
 
-      RouteTests.ErrRoute = testRoute3;
+      RouteTests.ErrRoute = testRoute2;
       RouteTests.ApplicationRoute = Ember.Route.extend({
         actions: {
           error: function(reason) {
