@@ -64,6 +64,9 @@
 
       var testRoute2 = Ember.Route.extend({
 
+        beforeModel: function() { console.log('testRoute2: beforeModel'); },
+        afterModel: function() { console.log('testRoute2: afterModel'); },
+
         model: function() {
           return Ember.RSVP.reject('luser!');
         },
