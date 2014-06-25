@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Controller</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars">
+      <header>
+        <h1>Controller Testing</h1>
+      </header>
+      <div>
+        <div>{{outlet}}</div>
+      </div>
+      <hr>
+      <footer>
+        &copy;2013 Tasty Component Testing, Inc. 
+      </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="index">
+      index
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.ComponentTests = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+    </script>
+
+  </body>
+</html>
