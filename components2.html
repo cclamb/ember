@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Components</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars">
+      <header>
+        <h1>Component Testing</h1>
+      </header>
+      <div>
+        <div>{{outlet}}</div>
+      </div>
+      <hr>
+      <footer>
+        &copy;2013 Tasty Component Testing, Inc. 
+      </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="index">
+      {{#test-component title=name}}
+        <p class="author">by franky</p>
+        <span>Who is ultra cool dudez.</span>
+        <span>...and titled stuff {{name}}.</span>
+      {{/test-component}}
+    </script>
+
+    <script type="text/x-handlebars" id="components/test-component">
+      <h2>{{title}}</h2>
+      <p>start yield...</p>
+      {{yield}}
+      <p>end yield.</p>
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.ComponentTests = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      ComponentTests.IndexRoute = Ember.Route.extend({
+        model: function() {
+          return { name: 'Spiders Like Biscuits.' };
+        }
+      });
+
+    </script>
+
+  </body>
+</html>
