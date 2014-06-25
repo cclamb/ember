@@ -16,12 +16,22 @@
       </div>
       <hr>
       <footer>
-        &copy;2013 Tasty Component Testing, Inc. 
+        &copy;2013 Tasty Controller Testing, Inc. 
       </footer>
     </script>
 
     <script type="text/x-handlebars" data-template-name="index">
-      index
+      <h1>{{title}}</h1>
+      <h2>by {{author}}</h2>
+
+      <div class='intro'>
+        {{intro}}
+      </div>
+      <hr>
+      <div class='body'>
+        {{body}}
+      </div>
+      <p>{{nifty}}</p>
     </script>
 
     <script src="http://underscorejs.org/underscore-min.js"></script>
@@ -31,9 +41,24 @@
     <script src="js/libs/ember-data.js"></script>
     <script>
 
-      window.ComponentTests = Ember.Application.create({
+      window.ControllerTests = Ember.Application.create({
         LOG_TRANSITIONS: true,
         LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      ControllerTests.IndexRoute = Ember.Route.extend({
+        model: function() {
+          return {
+            title: 'I am the title.',
+            author: 'Fun E. Timez',
+            intro: 'Such a cool book.',
+            body: 'No kidding, it is such a cool book it will blow your mind duder.'
+          };
+        }
+      });
+
+      ControllerTests.IndexController = Ember.ObjectController.extend({
+        nifty: 'controller data here!'
       });
 
     </script>
