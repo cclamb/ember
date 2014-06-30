@@ -32,6 +32,7 @@
         {{body}}
       </div>
       <p>{{nifty}}</p>
+      <p>{{number}} : {{doubleNumber}}</p>
     </script>
 
     <script src="http://underscorejs.org/underscore-min.js"></script>
@@ -52,13 +53,18 @@
             title: 'I am the title.',
             author: 'Fun E. Timez',
             intro: 'Such a cool book.',
-            body: 'No kidding, it is such a cool book it will blow your mind duder.'
+            body: 'No kidding, it is such a cool book it will blow your mind duder.',
+            number: 2
           };
         }
       });
 
       ControllerTests.IndexController = Ember.ObjectController.extend({
-        nifty: 'controller data here!'
+        nifty: 'controller data here!',
+        doubleNumber: function() {
+          var number = this.get('model.number');
+          return number * 2;
+        }.property('model.doubleNumber')
       });
 
     </script>

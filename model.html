@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Model</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <script type="text/x-handlebars">
+      <header>
+        <h1>Model Testing</h1>
+      </header>
+      <div>
+        <div>{{outlet}}</div>
+      </div>
+      <hr>
+      <footer>
+        &copy;2013 Tasty Model Testing, Inc. 
+      </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="index">
+      index
+    </script>
+
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script>
+
+      window.ModelTests = Ember.Application.create({
+        LOG_TRANSITIONS: true,
+        LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      ModelTests.Person = DS.Model.extend({
+        // cars: DS.hasMany('car'),
+        firstName: DS.attr('string'),
+        lastName: DS.attr('string'),
+        birthMonth: DS.attr('int'),
+        birthYear: DS.attr('int'),
+        birthDate: function() {
+          return this.get('birthMonth') + '/' + this.get('birthYear');
+        }.property('birthMonth', 'birthYear'),
+        fullName: function() {
+          return this.get('firstName') + ' ' + this.get('lastName');
+        }.property('firstName', 'lastName')
+      });
+
+      ModelTests.Car = DS.Model.extend({
+        //owner: DS.belongsTo('owner'),
+        make: DS.attr('string'),
+        model: DS.attr('string'),
+        year: DS.attr('int')
+      });
+
+      ModelTests.IndexRoute = Ember.Route.extend({
+        model: function() {
+          var car = this.store.createRecord('car', {
+            make: 'vw', model: 'jetta', year: 2002
+          });
+          // var owner = this.store.createRecord('person', {
+          //   firstName: 'vw', lastName: 'jetta', birthMonth: 10, birthYear: 1977
+          // });
+          // this.store.find('person', 1).then(function(person){
+          //   car.set('owner', person);
+          // });
+          return this.store.find('car', 1);
+        }
+      })
+
+
+
+    </script>
+
+  </body>
+</html>
