@@ -21,7 +21,7 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="index">
-      index
+      <p>The car is a {{make}} {{type}} from {{year}}</p>
     </script>
 
     <script src="http://underscorejs.org/underscore-min.js"></script>
@@ -34,6 +34,12 @@
       window.ModelTests = Ember.Application.create({
         LOG_TRANSITIONS: true,
         LOG_TRANSITIONS_INTERNAL: true
+      });
+
+      ModelTests.ApplicationRoute = Ember.Route.extend({
+        model: function() {
+          this.store.push
+        }
       });
 
       ModelTests.Person = DS.Model.extend({
@@ -53,14 +59,14 @@
       ModelTests.Car = DS.Model.extend({
         //owner: DS.belongsTo('owner'),
         make: DS.attr('string'),
-        model: DS.attr('string'),
+        type: DS.attr('string'),
         year: DS.attr('int')
       });
 
       ModelTests.IndexRoute = Ember.Route.extend({
         model: function() {
           var car = this.store.createRecord('car', {
-            make: 'vw', model: 'jetta', year: 2002
+            id: 1, make: 'vw', type: 'jetta', year: 2002
           });
           // var owner = this.store.createRecord('person', {
           //   firstName: 'vw', lastName: 'jetta', birthMonth: 10, birthYear: 1977
