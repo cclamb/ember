@@ -38,7 +38,25 @@
         LOG_TRANSITIONS_INTERNAL: true
       });
 
-      ModelTests.ApplicationAdapter = DS.FixtureAdapter;
+      ModelTests.ApplicationAdapter = DS.FixtureAdapter.extend({
+        queryFixtures: function(fixture, query, type) { 
+          console.log(fixture);
+          console.log(query);
+          console.log(type);
+          var propName = null;
+          var propValue = null;
+          for (var i in query) {
+            console.log(i);
+          }
+          for (var i in query) {
+            propName = i;
+            propValue = query[i];
+            break;
+          }
+          var retVal = fixture.findBy(propName, propValue);
+          return[retVal];
+        }
+      });
 
       ModelTests.Car = DS.Model.extend({
         make: DS.attr('string'),
